@@ -1,6 +1,5 @@
 import React, {useState, useMemo, useCallback} from 'react'
 import {StyleSheet, SafeAreaView, View, Text} from 'react-native'
-import type {LayoutChangeEvent} from 'react-native'
 import {Colors} from 'react-native-paper'
 import LifeCycle from './src/screens/LifeCycle'
 import Timer from './src/screens/Timer'
@@ -8,11 +7,6 @@ import Interval from './src/screens/Interval'
 import Fetch from './src/screens/Fetch'
 
 export default function App() {
-  const onLayout = (e: LayoutChangeEvent) => {
-    const layout = e.nativeEvent
-    console.log(layout)
-  }
-
   const selects = useMemo(() => ['lifeCycle', 'timer', 'interval', 'fetch'], [])
   const [select, setSelect] = useState<string>(selects[0])
   const onPress = useCallback(text => () => setSelect(text), [])
@@ -32,7 +26,6 @@ export default function App() {
       {select == 'timer' && <Timer />}
       {select == 'interval' && <Interval />}
       {select == 'fetch' && <Fetch />}
-      <View onLayout={onLayout}></View>
     </SafeAreaView>
   )
 }
