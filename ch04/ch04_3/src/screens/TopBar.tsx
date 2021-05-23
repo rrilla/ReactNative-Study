@@ -10,7 +10,8 @@ export type TopBarProps = {
 
 const TopBar: FC<TopBarProps> = ({setPeople}) => {
   const add = useCallback(
-    () => setPeople(people => [D.createRandomPerson(), ...people]),
+    () =>
+      setPeople(previousPeople => [D.createRandomPerson(), ...previousPeople]),
     [],
   )
   const deleteAll = useCallback(() => {
