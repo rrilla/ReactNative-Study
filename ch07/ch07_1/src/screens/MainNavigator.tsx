@@ -1,30 +1,13 @@
-// 초기 버전
-import React from 'react';
-import {StyleSheet, Text} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-
-export default function MainNavigator() {
-  return (
-    <SafeAreaView style={[styles.view]}>
-      <Text>This is top text.</Text>
-      <Text>This is bottom text.</Text>
-    </SafeAreaView>
-  );
-}
-const styles = StyleSheet.create({
-  view: {flex: 1, alignItems: 'center', justifyContent: 'space-between'},
-});
 // 테마 적용
-/*
-import React from 'react'
-import {StyleSheet, View, Text, Switch} from 'react-native'
-import {SafeAreaView} from 'react-native-safe-area-context'
-import {useTheme} from '@react-navigation/native'
-import {useToggleTheme} from '../contexts'
+import React from 'react';
+import {StyleSheet, View, Text, Switch} from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {useTheme} from '@react-navigation/native';
+import {useToggleTheme} from '../contexts';
 
 export default function MainNavigator() {
-  const theme = useTheme()
-  const toggleTheme = useToggleTheme()
+  const theme = useTheme();
+  const toggleTheme = useToggleTheme();
 
   return (
     <SafeAreaView style={[styles.flex]}>
@@ -42,7 +25,7 @@ export default function MainNavigator() {
         </View>
       </View>
     </SafeAreaView>
-  )
+  );
 }
 const styles = StyleSheet.create({
   flex: {flex: 1},
@@ -51,11 +34,10 @@ const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     padding: 5,
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
   },
-  text: {fontSize: 20}
-})
-*/
+  text: {fontSize: 20},
+});
 // 테마 적용 완성 버전
 /*
 import React, {useState} from 'react'
