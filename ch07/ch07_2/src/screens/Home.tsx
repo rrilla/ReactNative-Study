@@ -4,8 +4,16 @@ import {SafeAreaView, View, UnderlineText, TopBar} from '../theme/navigation';
 import {ScrollEnabledProvider, useScrollEnabled} from '../contexts';
 import * as D from '../data';
 import Person from './Person';
+import {useNavigation} from '@react-navigation/native';
 
-export default function People() {
+export default function Home() {
+  const navigation = useNavigation();
+  const goLeft = useCallback(() => navigation.navigate('HomeLeft'), []);
+  const goRight = useCallback(
+    () => navigation.navigate('HomeRight', {name: 'Jack', age: 32}),
+    [],
+  );
+
   const [scrollEnabled] = useScrollEnabled();
   const [people, setPeople] = useState<D.IPerson[]>([]);
 
@@ -27,6 +35,14 @@ export default function People() {
       <ScrollEnabledProvider>
         <View style={[styles.view]}>
           <TopBar>
+            <UnderlineText onPress={goLeft} style={[styles.text]}>
+              go Left
+            </UnderlineText>
+            <UnderlineText onPress={goRight} style={[styles.text]}>
+              go Right
+            </UnderlineText>
+          </TopBar>
+          <TopBar noSwitch>
             <UnderlineText onPress={addPerson} style={styles.text}>
               add
             </UnderlineText>

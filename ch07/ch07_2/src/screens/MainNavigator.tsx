@@ -9,7 +9,7 @@ const Stack = createStackNavigator();
 // prettier-ignore
 export default function MainNavigator(){
   return (
-    <Stack.Navigator initialRouteName='HomeLeft'>
+    <Stack.Navigator initialRouteName="Home">
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="HomeLeft" component={HomeLeft} />
       <Stack.Screen name="HomeRight" component={HomeRight} />
