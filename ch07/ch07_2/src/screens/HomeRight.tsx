@@ -1,15 +1,40 @@
-import React from 'react';
+import {useNavigation, useRoute} from '@react-navigation/native';
+import React, {useCallback} from 'react';
 import {StyleSheet} from 'react-native';
-import {SafeAreaView, View, Text, TopBar} from '../theme/navigation';
+// prettier-ignore
+import {SafeAreaView, View, Text, TopBar, UnderlineText} from '../theme/navigation';
+import * as D from '../data';
 
-const title = 'CopyMe';
-export default function CopyMe() {
+const title = 'HomeRight';
+export default function HomeRight() {
+  const navigation = useNavigation();
+  const goBack = useCallback(
+    () => navigation.canGoBack() && navigation.goBack(),
+    [],
+  );
+  const goRight = useCallback(
+    () => navigation.navigate('HomeRight', {id: D.randomId()}),
+    [],
+  );
+
+  const route = useRoute();
+
   return (
     <SafeAreaView>
       <View style={[styles.view]}>
-        <TopBar />
+        <TopBar>
+          <UnderlineText onPress={goBack} style={[styles.text]}>
+            go left
+          </UnderlineText>
+          <UnderlineText
+            onPress={goRight}
+            style={[styles.text, {marginLeft: 10}]}>
+            go Right
+          </UnderlineText>
+        </TopBar>
         <View style={[styles.content]}>
           <Text style={[styles.text]}>{title}</Text>
+          <Text style={[styles.text]}>{JSON.stringify(route, null, 2)}</Text>
         </View>
       </View>
     </SafeAreaView>
