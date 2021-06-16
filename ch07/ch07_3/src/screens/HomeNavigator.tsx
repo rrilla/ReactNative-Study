@@ -10,21 +10,21 @@ import HomeRight from './HomeRight';
 const Stack = createStackNavigator();
 
 // prettier-ignore
-export default function MainNavigator() {
+export default function HomeNavigator() {
   const interpolator = useNavigationHorizontalInterpolator();
   const leftOptions = useMemo<StackNavigationOptions>(
     () => ({
       gestureDirection: 'horizontal-inverted',
       cardStyleInterpolator: interpolator,
     }),
-    [],
+    []
   );
   const rightOptions = useMemo<StackNavigationOptions>(
     () => ({
       gestureDirection: 'horizontal',
       cardStyleInterpolator: interpolator,
     }),
-    [],
+    []
   );
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>

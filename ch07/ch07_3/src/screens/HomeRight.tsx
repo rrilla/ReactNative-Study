@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import {useNavigation, useRoute} from '@react-navigation/native';
 import React, {useCallback} from 'react';
 import {StyleSheet} from 'react-native';
