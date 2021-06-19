@@ -14,7 +14,10 @@ export default function Login() {
   const focus = useAutoFocus();
   const navigation = useNavigation();
   //탭네비 > 스택네비(HomeNavigator) > 스택 내의 Home 처럼 거쳐서 감
-  const goHomeNavigator = useCallback(() => navigation.navigate('HomeNavigator'),[]);
+  const goHomeNavigator = useCallback(
+    () => navigation.navigate('TabNavigator'),
+    [],
+  );
   const goSignUp = useCallback(() => navigation.navigate('SignUp'),[]);
 
   return (

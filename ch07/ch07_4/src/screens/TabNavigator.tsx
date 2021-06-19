@@ -28,7 +28,7 @@ const screenOptions = ({route}: {route: RouteProp<ParamListBase, string>}) => {
 };
 
 const Tab = createBottomTabNavigator();
-export default function MainNavigator() {
+export default function TabNavigator() {
   return (
     <Tab.Navigator screenOptions={screenOptions}>
       <Tab.Screen

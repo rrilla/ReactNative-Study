@@ -1,6 +1,6 @@
 import React, {useState, useCallback, useEffect, useRef} from 'react';
 import {StyleSheet, FlatList} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import {DrawerActions, useNavigation} from '@react-navigation/native';
 // prettier-ignore
 import {SafeAreaView, View, UnderlineText,TopBar,
 NavigationHeader, MaterialCommunityIcon as Icon} from '../theme'
@@ -18,10 +18,15 @@ export default function Home() {
   const goRight = useCallback(
     () => navigation.navigate('HomeRight', {name: 'Jack', age: 32}), [],);
   const logout = useCallback(() => navigation.navigate('Login'), []);
+  const open = useCallback(
+    () => navigation.dispatch(DrawerActions.openDrawer()),
+    [],
+  );
 
   // for people
   const [scrollEnabled] = useScrollEnabled();
   const [people, setPeople] = useState<D.IPerson[]>([]);
+
   const leftRef = useRef<LeftRightNavigationMethods | null>(null);
   const addPerson = useCallback(() => {
     setPeople(people => [D.createRandomPerson(), ...people]); }, []);
@@ -38,6 +43,7 @@ export default function Home() {
     [],
   );
   useEffect(() => D.makeArray(5).forEach(addPerson), []);
+  
   const flatListRef = useRef<FlatList | null>(null);
 
   return (
@@ -46,6 +52,7 @@ export default function Home() {
         <View style={[styles.view]}>
           <NavigationHeader
             title="Home"
+            Left={() => <Icon name="menu" size={30} onPress={open} />}
             Right={() => <Icon name="logout" size={30} onPress={logout} />}
           />
           <TopBar noSwitch>

@@ -18,7 +18,7 @@ export default function SignUp() {
   //탭네비 > 스택네비(HomeNavigator) > 스택 내의 Home 처럼 거쳐서 감
   const goHomeNavigator = useCallback(() => {
     if (password === confirmPassword)
-      navigation.navigate('HomeNavigator')
+      navigation.navigate('TabNavigator');
     else  
       Alert.alert('password is invalid')
   },[password, confirmPassword]);
