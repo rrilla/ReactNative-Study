@@ -1,3 +1,18 @@
 import type {Action} from 'redux';
+import type {User} from './index';
 
-export type LoginActions = Action;
+type LogoutAction = Action<'logout'>;
+type LoginAction = Action<'login'> & {
+  loggedUser: User;
+};
+
+export type LoginActions = LogoutAction | LoginAction;
+
+export const LoginAction = (loggedUser: User): LoginAction => ({
+  type: 'login',
+  loggedUser,
+});
+
+export const LogoutAction = (): LogoutAction => ({
+  type: 'logout',
+});
