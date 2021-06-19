@@ -9,15 +9,20 @@ import * as D from '../data';
 import Person from './Person';
 import {LeftRightNavigation} from '../components';
 import type {LeftRightNavigationMethods} from '../components';
+import {useDispatch} from 'react-redux';
+import {LogoutAction} from '../store';
 
 // prettier-ignore
 export default function Home() {
   // navigation
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   const goLeft = useCallback(() => navigation.navigate('HomeLeft'), []);
   const goRight = useCallback(
     () => navigation.navigate('HomeRight', {name: 'Jack', age: 32}), [],);
-  const logout = useCallback(() => navigation.navigate('Login'), []);
+  const logout = useCallback(() => {
+    dispatch(LogoutAction())
+    navigation.navigate('Login')}, []);
   const open = useCallback(
     () => navigation.dispatch(DrawerActions.openDrawer()),
     [],

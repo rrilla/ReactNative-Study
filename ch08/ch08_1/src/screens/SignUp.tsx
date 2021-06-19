@@ -6,23 +6,28 @@ import {SafeAreaView, View, Text, TextInput, TouchableView, UnderlineText}
 from '../theme'
 import * as D from '../data';
 import {AutoFocusProvider, useAutoFocus} from '../contexts';
+import {useDispatch} from 'react-redux';
+import {LoginAction} from '../store';
 
 // prettier-ignore
 export default function SignUp() {
-  const [person, setPerson] = useState<D.IPerson>(D.createRandomPerson());
+  const [email, setEmail] = useState<string>(D.randomEmail())
+  const [name, setName] = useState<string>(D.randomName());
   const [password, setPassword] = useState<string>('1');
   const [confirmPassword, setConfirmPassword] = useState<string>(password);
 
   const focus = useAutoFocus();
   const navigation = useNavigation();
-  //탭네비 > 스택네비(HomeNavigator) > 스택 내의 Home 처럼 거쳐서 감
-  const goHomeNavigator = useCallback(() => {
-    if (password === confirmPassword)
-      navigation.navigate('TabNavigator');
-    else  
-      Alert.alert('password is invalid')
-  },[password, confirmPassword]);
-  const goLogin = useCallback(() => navigation.navigate('Login'),[]);
+  const dispatch = useDispatch();
+  
+  //드로어 네비 > 탭 네비(TabNavigator) > 스택 내의 Home 처럼 거쳐서 감
+  const goTabNavigator = useCallback(() => {
+    if (password === confirmPassword) {
+      dispatch(LoginAction({email, name, password}))
+      navigation.navigate('TabNavigator');}
+    else Alert.alert('password is invalid');
+  }, [password, confirmPassword]);
+  const goLogin = useCallback(() => navigation.navigate('Login'), []);
 
   return (
     <SafeAreaView>
@@ -34,10 +39,8 @@ export default function SignUp() {
               <TextInput
                 onFocus={focus}
                 style={[styles.textInput]}
-                value={person.email}
-                onChangeText={email =>
-                  setPerson(person => ({...person, email}))
-                }
+                value={email}
+                onChangeText={setEmail}
                 placeholder="enter your email"
               />
             </View>
@@ -48,8 +51,8 @@ export default function SignUp() {
               <TextInput
                 onFocus={focus}
                 style={[styles.textInput]}
-                value={person.name}
-                onChangeText={name => setPerson(person => ({...person, name}))}
+                value={name}
+                onChangeText={setName}
                 placeholder="enter your name"
               />
             </View>
@@ -81,7 +84,7 @@ export default function SignUp() {
           <TouchableView
             notification
             style={[styles.touchableView]}
-            onPress={goHomeNavigator}>
+            onPress={goTabNavigator}>
             <Text style={[styles.text]}>SignUp</Text>
           </TouchableView>
           <UnderlineText
@@ -92,7 +95,7 @@ export default function SignUp() {
         </AutoFocusProvider>
       </View>
     </SafeAreaView>
-  )
+  );
 }
 const styles = StyleSheet.create({
   view: {flex: 1, justifyContent: 'space-between', alignItems: 'center'},
