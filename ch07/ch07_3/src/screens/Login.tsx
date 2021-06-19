@@ -10,12 +10,12 @@ import {AutoFocusProvider, useAutoFocus} from '../contexts';
 // prettier-ignore
 export default function Login() {
   const [person, setPerson] = useState<D.IPerson>(D.createRandomPerson());
-  const [password, setPassword] = useState<string>(D.random(10000, 1000000).toString())
-  const focus = useAutoFocus()
-  const navigation = useNavigation()
-  const goHomeNavigator = useCallback(()=>
-    navigation.navigate('HomeNavigator'),[])
-  const goSignUp = useCallback(()=>navigation.navigate('SignUp'),[]);
+  const [password, setPassword] = useState<string>(D.random(10000, 1000000).toString());
+  const focus = useAutoFocus();
+  const navigation = useNavigation();
+  //탭네비 > 스택네비(HomeNavigator) > 스택 내의 Home 처럼 거쳐서 감
+  const goHomeNavigator = useCallback(() => navigation.navigate('HomeNavigator'),[]);
+  const goSignUp = useCallback(() => navigation.navigate('SignUp'),[]);
 
   return (
     <SafeAreaView>
@@ -39,7 +39,7 @@ export default function Login() {
             <Text style={[styles.text]}>password</Text>
             <View border style={[styles.textInputView]}>
               <TextInput
-                secureTextEntry
+                secureTextEntry//입력한 값 ***표시
                 onFocus={focus}
                 style={[styles.textInput]}
                 value={password}
