@@ -9,17 +9,35 @@ import {DrawerContentScrollView} from '@react-navigation/drawer';
 import {DrawerActions} from '@react-navigation/native';
 import {Avatar} from '../components';
 import * as D from '../data';
+import {useSelector} from 'react-redux';
+import type {AppState, User} from '../store';
 
-const loginUser = D.createRandomPerson();
-
-const title = 'DrawerContent';
+// prettier-ignore
 const DrawerContent: FC<DrawerContentComponentProps> = props => {
-  const {navigation} = props;
+  // redux제공하는 useSelector로 앱수준의 상태값 할당하여 사용
+  const loggedIn = useSelector<AppState, boolean>(state => state.loggedIn);
+  const loggedUser = useSelector<AppState, User>(state => state.loggedUser);
+  const {email, name} = loggedUser;
+
+  const {navigation} = props; //['progress', 'navigation', 'state', 'descriptors']
   const close = useCallback(
-    () => navigation.dispatch(DrawerActions.closeDrawer()),
-    [],
-  );
-  const go = useCallback(() => {}, []);
+    () => navigation.dispatch(DrawerActions.closeDrawer()), []);
+
+  if (!loggedIn) {
+    return (
+      <DrawerContentScrollView {...props} contentContainerStyle={[styles.view]}>
+        <NavigationHeader
+          Right={() => <Icon name="close" size={24} onPress={close} />}
+        />
+        <View style={[styles.content]}>
+          <Text style={[styles.text]}>Please login or signup.</Text>
+          <View style={[styles.row, {marginTop: 20}]}>
+            <Switch />
+          </View>
+        </View>
+      </DrawerContentScrollView>
+    );
+  }
   return (
     <DrawerContentScrollView {...props} contentContainerStyle={[styles.view]}>
       <NavigationHeader
@@ -27,15 +45,15 @@ const DrawerContent: FC<DrawerContentComponentProps> = props => {
       />
       <View style={[styles.content]}>
         <View style={[styles.row]}>
-          <Avatar uri={loginUser.avatar} size={40} />
-          <Text style={[styles.text, styles.m]}>{loginUser.name}</Text>
+          <Avatar uri={D.avatarUriByName(name)} size={40} />
+          <Text style={[styles.text, styles.m]}>{name}</Text>
         </View>
         <View style={[styles.row]}>
           <UnderlineText
             numberOfLines={1}
             ellipsizeMode="tail"
             style={[styles.text, styles.m]}>
-            {loginUser.email}
+            {email}
           </UnderlineText>
         </View>
         <View style={[styles.row, {marginTop: 20}]}>
