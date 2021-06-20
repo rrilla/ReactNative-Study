@@ -7,7 +7,7 @@ from '../theme'
 import * as D from '../data';
 import {AutoFocusProvider, useAutoFocus} from '../contexts';
 import {useDispatch} from 'react-redux';
-import {LoginAction} from '../store';
+import * as L from '../store/login';
 
 // prettier-ignore
 export default function SignUp() {
@@ -23,7 +23,7 @@ export default function SignUp() {
   //드로어 네비 > 탭 네비(TabNavigator) > 스택 내의 Home 처럼 거쳐서 감
   const goTabNavigator = useCallback(() => {
     if (password === confirmPassword) {
-      dispatch(LoginAction({email, name, password}))
+      dispatch(L.loginAction({email, name, password}))
       navigation.navigate('TabNavigator');}
     else Alert.alert('password is invalid');
   }, [password, confirmPassword]);
