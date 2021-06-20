@@ -1,26 +1,35 @@
-import React, {useState, useCallback, useEffect} from 'react';
+import React, {useState, useCallback, useEffect, useReducer} from 'react';
 import {StyleSheet, FlatList} from 'react-native';
 import {SafeAreaView, View, UnderlineText, TopBar} from '../theme/navigation';
 import {ScrollEnabledProvider, useScrollEnabled} from '../contexts';
+import {useDispatch, useSelector} from 'react-redux';
+
 import * as D from '../data';
 import Person from './Person';
+import * as P from '../store/people';
+import {AppState} from '../store';
 
 export default function People() {
   const [scrollEnabled] = useScrollEnabled();
-  const [people, setPeople] = useState<D.IPerson[]>([]);
 
-  const addPerson = useCallback(() => {
-    setPeople(people => [D.createRandomPerson(), ...people]);
+  // useReducer 사용
+  const [people, dispatch] = useReducer((state: P.State, action: P.Actions) => {
+    switch (action.type) {
+      case '@person/add':
+        return [...state, action.payload];
+      case '@person/delete':
+        return state.filter(person => person.id !== action.payload.id);
+      case '@person/deleteAll':
+        return [];
+    }
+    return state;
   }, []);
-  const removeAllPersons = useCallback(() => {
-    setPeople(notUsed => []);
-  }, []);
-  const deletePerson = useCallback(
-    (id: string) => () =>
-      setPeople(people => people.filter(person => person.id != id)),
-    [],
-  );
-  useEffect(() => D.makeArray(5).forEach(addPerson), []);
+
+  const addPerson = () => dispatch(P.addAction(D.createRandomPerson()));
+  const removeAllPersons = () => dispatch(P.deleteAllAction());
+  const deletePerson = (id: string) => () => dispatch(P.deleteAction(id));
+
+  useEffect(addPerson, []);
 
   return (
     <SafeAreaView>

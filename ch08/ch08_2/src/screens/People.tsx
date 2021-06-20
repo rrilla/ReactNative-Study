@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useEffect} from 'react';
+import React, {useState, useCallback, useEffect, useReducer} from 'react';
 import {StyleSheet, FlatList} from 'react-native';
 import {SafeAreaView, View, UnderlineText, TopBar} from '../theme/navigation';
 import {ScrollEnabledProvider, useScrollEnabled} from '../contexts';
@@ -11,6 +11,8 @@ import {AppState} from '../store';
 
 export default function People() {
   const [scrollEnabled] = useScrollEnabled();
+
+  // useReducer 미사용
   const people = useSelector<AppState, P.State>(({people}) => people);
   const dispatch = useDispatch();
 
@@ -26,7 +28,8 @@ export default function People() {
     },
     [],
   );
-  useEffect(() => D.makeArray(5).forEach(addPerson), []);
+
+  useEffect(addPerson, []);
 
   return (
     <SafeAreaView>
