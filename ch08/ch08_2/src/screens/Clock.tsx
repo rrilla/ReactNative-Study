@@ -12,6 +12,7 @@ export default function Clock() {
     ({clock}) => clock,
   );
   const dispatch = useDispatch();
+  //1초에 한번씩 현재시간으로 변경
   useInterval(() => {
     dispatch(C.setTimeAction(new Date()));
   }, 1000);
