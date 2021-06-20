@@ -10,7 +10,7 @@ import Person from './Person';
 import {LeftRightNavigation} from '../components';
 import type {LeftRightNavigationMethods} from '../components';
 import {useDispatch} from 'react-redux';
-import {LogoutAction} from '../store';
+import * as L from '../store/login';
 
 // prettier-ignore
 export default function Home() {
@@ -21,7 +21,7 @@ export default function Home() {
   const goRight = useCallback(
     () => navigation.navigate('HomeRight', {name: 'Jack', age: 32}), [],);
   const logout = useCallback(() => {
-    dispatch(LogoutAction())
+    dispatch(L.logoutAction())
     navigation.navigate('Login')}, []);
   const open = useCallback(
     () => navigation.dispatch(DrawerActions.openDrawer()),

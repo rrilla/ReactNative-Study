@@ -1,10 +1,5 @@
-export type User = {
-  name: string;
-  email: string;
-  password: string;
-};
+import * as L from './login';
 
 export type AppState = {
-  loggedIn: boolean;
-  loggedUser: User;
+  login: L.State;
 };

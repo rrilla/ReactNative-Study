@@ -7,7 +7,7 @@ from '../theme'
 import * as D from '../data';
 import {AutoFocusProvider, useAutoFocus} from '../contexts';
 import {useDispatch} from 'react-redux';
-import {LoginAction} from '../store';
+import * as L from '../store/login';
 
 // prettier-ignore
 export default function Login() {
@@ -22,7 +22,7 @@ export default function Login() {
   
   //드로어네비 > 탭네비(TabNavigator) > 스택 내의 Home 처럼 거쳐서 감
   const goTabNavigator = useCallback(() => {
-    dispatch(LoginAction({email, password, name}));
+    dispatch(L.loginAction({email, password, name}));
     navigation.navigate('TabNavigator');
   }, []);
   const goSignUp = useCallback(() => navigation.navigate('SignUp'), []);
