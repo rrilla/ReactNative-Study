@@ -1,22 +1,38 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {StyleSheet} from 'react-native';
-import {SafeAreaView, View, Text, TopBar} from '../theme/navigation';
+import {useSelector, useDispatch} from 'react-redux';
+// prettier-ignore
+import {View, Text, NavigationHeader, TopBar,
+MaterialCommunityIcon as Icon} from '../theme'
 
-const title = 'CopyMe';
-export default function CopyMe() {
+import type {AppState} from '../store';
+import * as C from '../store/counter';
+
+export default function Counter() {
+  const counter = useSelector<AppState, C.State>(state => state.counter);
+  const dispatch = useDispatch();
+  const increaseCounter = useCallback(() => {
+    dispatch(C.increaseAction());
+  }, []);
+  const decreaseCounter = useCallback(() => {
+    dispatch(C.decreaseAction());
+  }, []);
   return (
-    <SafeAreaView>
-      <View style={[styles.view]}>
-        <TopBar />
-        <View style={[styles.content]}>
-          <Text style={[styles.text]}>{title}</Text>
-        </View>
+    <View style={[styles.flex]}>
+      <NavigationHeader title="Counter" />
+      <TopBar>
+        <Icon name="plus" size={30} onPress={increaseCounter} />
+        <Icon name="minus" size={30} onPress={decreaseCounter} />
+      </TopBar>
+      <View style={[styles.flex, styles.textView]}>
+        <Text style={[styles.text]}>counter: {counter}</Text>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
+
 const styles = StyleSheet.create({
-  view: {flex: 1, padding: 5},
-  text: {fontSize: 20},
-  content: {flex: 1, alignItems: 'center', justifyContent: 'center'},
+  flex: {flex: 1},
+  textView: {alignItems: 'center', justifyContent: 'center'},
+  text: {fontSize: 30},
 });
