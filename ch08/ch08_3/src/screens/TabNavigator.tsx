@@ -4,20 +4,16 @@ import {Colors} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import HomeNavigator from './HomeNavigator';
-import Counter from './Fetch';
-import Clock from './ThunkFetch';
-import People from './People';
-import UseReducer from './UseReducer';
+import Fetch from './Fetch';
+import ThunkFetch from './ThunkFetch';
 
 import type {RouteProp, ParamListBase} from '@react-navigation/native';
 type TabBarIconProp = {focused: boolean; color: string; size: number};
 
 const icons: Record<string, string[]> = {
   HomeNavigator: ['home-circle', 'home-circle-outline'],
-  Counter: ['eye-plus', 'eye-plus-outline'],
-  Clock: ['clock-alert', 'clock-alert-outline'],
-  People: ['account-group', 'account-group-outline'],
-  UseReducer: ['group', 'ungroup'],
+  Fetch: ['eye-plus', 'eye-plus-outline'],
+  ThunkFetch: ['clock-alert', 'clock-alert-outline'],
 };
 
 const screenOptions = ({route}: {route: RouteProp<ParamListBase, string>}) => {
@@ -42,10 +38,8 @@ export default function TabNavigator() {
         component={HomeNavigator}
         options={{tabBarLabel: 'Home', tabBarBadge: 3}}
       />
-      <Tab.Screen name="Counter" component={Counter} />
-      <Tab.Screen name="Clock" component={Clock} />
-      <Tab.Screen name="People" component={People} />
-      <Tab.Screen name="UseReducer" component={UseReducer} />
+      <Tab.Screen name="Fetch" component={Fetch} />
+      <Tab.Screen name="ThunkFetch" component={ThunkFetch} />
     </Tab.Navigator>
   );
 }
