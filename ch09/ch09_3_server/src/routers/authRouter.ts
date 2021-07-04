@@ -10,7 +10,7 @@ export const authRouter = () => {
       console.log('signup', name, email, password)
       const jwt = await U.jwtSign(
         {email, name, password, provider: 'local'},
-        {expiresIn: '9999 years'}, // 회원 가입 토큰 이므로 영구히 유지되도록 합니다.
+        {expiresIn: '9999 years'}, // 회원 가입 토큰 이므로 영구히 유지되도록 합니다
       )
       res.json({jwt})
     })
