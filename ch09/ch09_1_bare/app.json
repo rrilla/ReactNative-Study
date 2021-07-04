@@ -1,0 +1,12 @@
+{
+  "name": "ch09_1_bare",
+  "displayName": "ch09_1_bare",
+  "expo": {
+    "name": "ch09_1_bare",
+    "slug": "ch09_1_bare",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
